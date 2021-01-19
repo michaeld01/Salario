@@ -58,15 +58,6 @@ void CalculoSalario::calcular()
 
 }
 
-QString CalculoSalario::cargarDatos()
-{
-    "Obrero: "+m_nombre +"\n"+
-            "Salario: "+m_salario+"\n"+
-            "Descuento (9.5%): $"+m_descuento+"\n"+
-            "Salario Neto: $"+m_salarioNeto+ "\n"+
-            "- - - - - - - - - - - - - - - - "+"\n";
-
-}
 
 
 

@@ -27,7 +27,6 @@ public:
     explicit CalculoSalario(QObject *parent = nullptr);
     CalculoSalario(QString nombre, int horas, char jornada);
     void calcular();
-    QString cargarDatos();
 
 
     float descuento() const;
