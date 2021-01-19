@@ -18,6 +18,7 @@ public:
     ~Principal();
 
     int total=0;
+    CalculoSalario *trabajador[50];
 
 
 private slots:

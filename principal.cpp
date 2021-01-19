@@ -72,12 +72,11 @@ void Principal::abrir()
         QString linea = in.readLine();
         datos << linea;
     }
-
-    ui->outResultados->setPlainText(datos[0] + "\n" +
-            datos[1] + "\n" +
-            datos[2] + "\n" +
-            datos[3] + "\n" +
-            datos[4] + "\n");
+    qDebug() << datos.size();
+    qDebug() << datos.length();
+for(int i=0; i < datos.size(); i++){
+    ui->outResultados->appendPlainText(datos[i]);
+    }
 
     file.close();
 }
@@ -97,17 +96,22 @@ void Principal::on_cmdCalcular_released()
         jornada = 'n';
     }
     qDebug() << "Jornada:" << jornada;
-    CalculoSalario rolPagos(nombre, horas, jornada);
-    rolPagos.calcular();
-    qDebug() << rolPagos.salario() << rolPagos.descuento() << rolPagos.salarioNeto();
+    int indice = total;
+    trabajador[indice] = new CalculoSalario(nombre, horas, jornada);
+    this->total++;
+    //CalculoSalario rolPagos(nombre, horas, jornada);
+    trabajador[indice]->calcular();
+    qDebug() << trabajador[indice]->salario() << trabajador[indice]->descuento() << trabajador[indice]->salarioNeto();
 
-
-    ui->outResultados->setPlainText( "Obrero: "+nombre +"\n"+
-                                     "Salario: "+QString::number(rolPagos.salario()) +"\n"+
-                                     "Descuento (9.5%): $"+QString::number(rolPagos.descuento()) +"\n"+
-                                     "Salario Neto: $"+QString::number(rolPagos.salarioNeto()) + "\n"+
-                                     "- - - - - - - - - - - - - - - - "+"\n");
-
+    ui->outResultados->setPlainText(NULL);
+    for(int i=0; i< total; i++){
+        ui->outResultados->appendPlainText( "Obrero: "+trabajador[i]->nombre() +"\n"+
+                                            "Salario: "+QString::number(trabajador[i]->salario()) +"\n"+
+                                            "Descuento (9.5%): $"+QString::number(trabajador[i]->descuento()) +"\n"+
+                                            "Salario Neto: $"+QString::number(trabajador[i]->salarioNeto()) + "\n"+
+                                            "- - - - - - - - - - - - - - - - "+"\n");
+        qDebug() << trabajador[i]->nombre() << trabajador[i]->salario() << trabajador[i]->descuento() << trabajador[i]->salarioNeto();
+    }
     ui->inNombre->setText(NULL);
     ui->inHoras->setValue(NULL);
     ui->inMatutino->setChecked(1);
